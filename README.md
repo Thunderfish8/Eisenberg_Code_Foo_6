@@ -1,2 +1,3 @@
 # Eisenberg_Code_Foo_6
-My submission for IGN's Code-Foo 6 challenge.
+
+My name is Jared Eisenberg, and this is my submission for the Code-Foo 6 challenge.
