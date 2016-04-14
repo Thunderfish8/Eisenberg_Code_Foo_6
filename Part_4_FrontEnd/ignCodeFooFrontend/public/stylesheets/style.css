@@ -1,0 +1,159 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+}
+
+a {
+  color: #00B7FF;
+}
+
+hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+@keyframes test{
+    from{background-size: 130% auto;}
+    to {background-size: 100% auto;}
+}
+
+.thumbHub:hover{
+
+}
+
+.backDrop{
+    background-color: black;
+}
+
+.inView{
+    background-color: white;
+}
+
+.iteration{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.iteration:hover{
+    animation-name: test;
+    animation-duration: .2s;
+    color: white;
+}
+
+.buttonRow{
+    height: 10px;
+}
+
+.moreBar{
+    font-size: 12px;
+    font-weight: bold;
+    color: gray;
+    font-family: 'Nunito', sans-serif;
+    padding-top: 8px;
+}
+
+.moreVid:hover{
+    text-decoration: underline;
+    color: #dd0000;
+}
+
+.topBar{
+    border-top-left-radius: 1% 50%;
+    border-top-right-radius: 1% 50%;
+}
+
+.bottomBar{
+    border-bottom-left-radius: 1% 50%;
+    border-bottom-right-radius: 1% 50%;
+}
+
+.toggleButtonLeft{
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+
+.toggleButtonRight{
+    border-top-right-radius: 10% 50%;
+    border-bottom-right-radius: 10% 50%;
+}
+
+.toggleButton, .toggleButton:active, .toggleButton:focus, .toggleButton:hover, .toggleButton:active:focus{
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    border-color: #dd0000;
+    border-width: 2px;
+    outline: none !important;
+}
+
+.toggleOn, .toggleOn:active, .toggleOn:focus, .toggleOn:hover, .toggleOn:active:focus{
+    background-color: #dd0000;
+    color: #ffffff;
+}
+
+.toggleOff, .toggleOff:active, .toggleOff:focus, .toggleOff:hover, .toggleOff:active:focus{
+    background-color: #ffffff;
+    color: #dd0000;
+}
+
+.toggleOn:hover, .toggleOff:hover{
+    text-decoration: underline;
+    text-decoration-color: #dd0000
+}
+
+.numberLine{
+    margin-right: -5%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.titleLine{
+    margin-left: -5%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.titleBar{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+}
+.subTitleBar{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 100;
+    color: #999999;
+}
+
+.entryRow{
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.indexCol{
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    padding-right: 5px;
+}
+
+.timeCol{
+    text-align: left;
+    font-weight: bold;
+    font-family: 'Nunito',sans-serif;
+    padding-left: 5px;
+    color: #999999;
+}
+
+.numLineDiv{
+    padding-left: 25px;
+    padding-right: 5px;
+}

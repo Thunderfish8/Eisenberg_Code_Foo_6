@@ -1,0 +1,14 @@
+{
+  "name": "ign_code_foo_frontend",
+  "version": "1.0.0",
+  "description": "Submission for IGN Code Foo 6 Part 4",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express-generator": "^4.13.1"
+  }
+}

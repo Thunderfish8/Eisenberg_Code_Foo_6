@@ -2,7 +2,6 @@
 #Global Variables
 $stillUsing = true
 $validInput = false
-$inputErrors = Array.new(2, false)
 $letters = ""
 $listOfWords = []
 $points = { 'a' => 1,
@@ -66,6 +65,8 @@ def getUserInput()
     rawLetters = gets.chomp.downcase
 
     $validInput = true
+    lengthError = false
+    contentError = false
 
     #Determine if there are commas in the input.  If so, split with comma delimiter.  Otherwise split after every character.
     if (rawLetters.scan(",").length > 0)
@@ -77,25 +78,25 @@ def getUserInput()
     #Check to make sure every "letter" is only one character and a valid scrabble letter.
     for i in 0..$letters.length-1
         nextLetter = $letters[i]
-        if (nextLetter.length > 1)
+        if (nextLetter.length != 1)
             $validInput = false
-            $inputErrors[0] = true
+            lengthError = true
         elsif (!$points.has_key?(nextLetter))
             $validInput = false
-            $inputErrors[1] = true
+            contentError = true
         end
     end
 
     #Malformed input handling
     if (!$validInput)
-        if ($inputErrors[0])
+        if (lengthError)
             puts "ERROR CODE 0 --> One or more of your listed items contained more than one character."
         end
-        if ($inputErrors[1])
+        if (contentError)
             puts "ERROR CODE 1 --> One or more of your listed items is not a valid letter."
         end
-        $inputErrors[0] = false
-        $inputErrors[1] = false
+        lengthError = false
+        contentError = false
     end
 end
 
@@ -112,7 +113,7 @@ File.open('words.txt').each do |word|
     end
 end
 
-#Sort the array of words by their word value.
+#Sort the array of words by their word value (descending order).
 $listOfWords.sort_by! do |word|
     -1 * calculateWordValue(word)
 end
@@ -126,8 +127,10 @@ while ($stillUsing)
         getUserInput()
     end
 
+    #This calls the algorithm that determines the best word possible.
     determineBestWord($letters)
 
+    #This loop runs until the user has decided whether or not to input another list of letters.
     $validInput = false
     while (!$validInput)
         puts "Would you like to input another list of letters? Enter 'yes' or 'no'."

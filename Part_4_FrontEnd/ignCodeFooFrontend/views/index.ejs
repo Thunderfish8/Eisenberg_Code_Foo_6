@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html ng-app="ignApp">
+    <head>
+        <title>IGN Code Foo FrontEnd Submission</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/controllers.js"></script>
+    </head>
+    <body ng-controller="main">
+        <div class="container-fluid backDrop">
+            <div class="row buttonRow backDrop">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView buttonRow topBar"></div>
+            </div>
+            <div class="row backDrop">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group " role="group">
+                                <button type="button" class="btn btn-default toggleButton toggleButtonLeft" ng-click="switchType(true)" ng-class="{toggleOn: onArticles, toggleOff: !onArticles}">ARTICLES</button>
+                            </div>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default toggleButton toggleButtonRight" ng-click="switchType(false)" ng-class="{toggleOn: !onArticles, toggleOff: onArticles}">VIDEOS</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row buttonRow backDrop">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView buttonRow"></div>
+            </div>
+            <div class="row backDrop thumbHub" ng-repeat="entry in articles track by $index" ng-show="onArticles" ng-click="followArticleLink(entry.metadata.publishDate, entry.metadata.slug)">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView iteration"  ng-mouseover="hovStyle = {'background-image' : 'url(' + entry.thumbnail + ')', color: white}" ng-mouseout = "hovStyle = {}"  ng-style="hovStyle">
+                    <div class="col-xs-2 indexCol">
+                        {{numTwoDig($index + 1)}}
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="row titleBar">
+                            <span>{{entry.metadata.headline}}</span>
+                        </div>
+                        <div class="row subTitleBar">
+                            <span>{{entry.metadata.subHeadline}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView" ng-hide="$index == videos.length-1">
+                    <div class="col-xs-2 numLineDiv">
+                        <hr class="numberLine">
+                    </div>
+                    <div class="col-xs-10">
+                        <hr class="titleLine">
+                    </div>
+                </div>
+            </div>
+            <div class="row buttonRow backDrop" ng-show="onArticles">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView">
+                    <div class="col-xs-6 col-xs-offset-2 inView moreBar">
+                        <div class="row">
+                            <span class="moreVid" ng-click="loadArticles()">SEE MORE ARTICLES</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row backDrop thumbHub" ng-repeat="entry in videos track by $index" ng-hide="onArticles" ng-click="followVideoLink(entry.metadata.url)">
+                    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView iteration"  ng-mouseover="hovStyle = {'background-image' : 'url(' + entry.thumbnail + ')', color: white}" ng-mouseout = "hovStyle = {}"  ng-style="hovStyle">
+                        <div class="col-xs-2 indexCol">
+                            {{numTwoDig($index + 1)}}
+                        </div>
+                        <div class="col-xs-8 ">
+                            <div class="row titleBar">
+                                <span>{{entry.objectRelations[0].objectName}}</span>
+                            </div>
+                            <div class="row subTitleBar">
+                                <span>{{entry.metadata.title}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 timeCol">
+                            {{secToMin(entry.metadata.duration)}}
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView" ng-hide="$index == videos.length-1">
+                        <div class="col-xs-2 numLineDiv">
+                            <hr class="numberLine">
+                        </div>
+                        <div class="col-xs-10">
+                            <hr class="titleLine">
+                        </div>
+                    </div>
+            </div>
+            <div class="row buttonRow backDrop" ng-hide="onArticles">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 inView">
+                    <div class="col-xs-6 col-xs-offset-2 inView moreBar">
+                        <div class="row">
+                            <span class="moreVid" ng-click="loadVideos()">SEE MORE VIDEOS</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row buttonRow backDrop">
+                <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 inView buttonRow bottomBar"></div>
+            </div>
+        </div>
+    </body>
+</html>
