@@ -44,6 +44,7 @@ hr{
     animation-name: test;
     animation-duration: .2s;
     color: white;
+    cursor: pointer;
 }
 
 .buttonRow{

@@ -1,0 +1,123 @@
+
+
+---- Step 1: Getting Dimensions ----
+
+The dimensions are pulled from the following sources:
+
+http://www.robertcailliau.eu/Lego/Dimensions/zMeasurements-en.xhtml
+http://www.robertcailliau.eu/Lego/Dimensions/zBasics-en.xhtml
+http://goldengatebridge.org/research/factsGGBDesign.php
+
+Main Cables Diameter: 0.96 meters
+Main Cables Length: 2332 meters
+
+Tower Height: 227 meters
+Tower Base Dimensions: 10 meters X 16 meters
+
+Width of Bridge: 27 meters
+Length of Bridge: 1966 meters (This encompasses the main span and both side spans)
+Depth of Bridge: 227 - 152 - 67 = 8 meters
+    Height of Tower Above Water = 227 meters
+    Height of Tower Above Roadway = 152 meters
+    Clearance above water = 67 meters
+
+
+Suspender Ropes Diameter: .068 meters
+Number of Ropes: 250 pairs = 500 ropes
+Average Height of Rope: Tower Height / 2 = 227/2 = 113.5 meters
+
+2x2 Lego Slab:
+    Sides: .016 meters
+    Height: .0032 meters
+
+---- Step 2: Determining Ideal Configurations ----
+
+It is important to use base slabs of legos (larger than 4x4) to create a foundation for our ideal configuration of legos.
+On top of this base will be a matrix of 2x2 legos.
+There is a visual example of what this would look like in base.png located in the same directory as this file.
+
+At first glance, it would seem sufficient to simply stack matrices of legos on top of each other in an aligned configuration.
+However, it is important to note that this would result in many columns of legos that are not attached.  They would not be able to stand as one structure.
+This configuration can be viewed in badConfig.png, located in this directory.
+
+A more successful configuration can be found in goodConfig.png, located in this directory.
+In this configuration, 2x2 legos are used to connect the corners of the 2x2 legos on the previous level.
+Around the edges (since there will be a ring 1 unit wide left over), are 1x2, 2x1, and 1x1 legos placed where appropriate.
+An example of how these edge pieces work can be seen in the goodConfig.png picture.
+To see how this configuration would scale, see goodConfigLarge.png, located in this directory.
+
+Aside from the layout of the legos, structure integrity should be taken into account.
+While no to-scale model of the Golden Gate bridge made from legos would stand, we can take measures to make it as stable as possible.
+For this reason, the calculations to come will use lego slabs instead of lego bricks.  Bricks are three times as tall as slabs, so with our configuration above, slabs should yield three times as many connections between legos.
+    The extra connections should help the bridge stay together (despite the fact that it would likely never stand if made from legos in the first place).
+
+
+
+
+
+---- Step 3: Assumptions and Estimates ----
+
+Some assumptions must be made to simplify the calculations to come.
+First off, individual legos are so small in comparison to the bridge and its parts that it should be sufficient to use the volume of the bridge's parts and the volume of a 2x2 lego in order to calculate the final answer.
+    While this method is not 100% accurate, it is the best estimate that can be made using the information available to us.
+    For parts of the bridge like the tower that has a defined base, this method is more accurate than for parts like the main cable that does not have a defined base.
+    In addition, our base layer of 16x16 slabs will amount to such a small percentage of the total number of legos that they are effectively negligible.
+
+Second, according to the lego simulator used to create the images in this directory, 16x16 is the largest available standard lego slab.  Our base will be made using 16x16 slabs.
+
+We also need to make a few estimates to simplify our calculations.
+These assumptions will be noted as they become relevant in calculations, but to give an example, the tower slightly narrowing towards the top cannot be taken into account as the exact measurement for how much it narrows is unavailable.
+
+Any calculations that result in units of legos or levels will be rounded to whole numbers (since we can't have fractions of legos or levels).
+
+
+
+
+---- Step 4: Calculating the Answer ----
+
+Main Cables:
+    A slice of the cable has an area of .48*.48*pi square meters = .724 meters squared
+    One 2x2 lego slab has an area of .016*.016 = .000254 meters squared.
+    So, .724/.000254 = 2828 2x2 legos.
+    The cable is 2332 meters long, and assuming that we're stacking these slices of legos on each other for 2332 meters, we'll need to divide 2332 by the lego height.
+    2332/.0032 = 728750 levels.
+    With 2828 legos per slice, we could make our matrix have roughly 53 rows and 53 columns.  However, every other slice has edge pieces due to our configuration.
+    For a level with n rows, the level above it (with edge pieces), contains (n+1)^2 legos.
+    So, with 728750 levels, we have 364375 levels with 2882 legos, and 364275 levels with 2916 (equal to 54 squared) legos.
+    Since there are two cables, we can count 728750 rows of 2882 legos and 728750 rows of 2916 legos.
+    This totals to 4,225,292,500 legos.
+
+The Towers:
+    The base dimensions of the tower are 10 by 16 meters or 160 meters squared.
+    In 2x2 legos, this is 160/.000254 = 629921 legos for the base.
+    The towers are 227 meters tall.
+    This yields 227/.0032 = 70938 levels.
+    Each level will alternate the number of legos by the same formula as the cables.
+        629921 is roughly 794 squared.  So half of the levels will have 629921 legos and half with have 632025 legos (795 squared).
+        Since there are two towers, we will have 70938/2*2 = 70938 levels of 629921 legos and 70938 levels of 632025 legos.
+    This totals to 89,519,925,350
+    However, the towers actually have a fair amount of hollow space, most notably the four big gaps in the each tower above the roadway.
+        We will estimate that roughly one half of the tower is hollow space.
+        So we cut our total by 1/2 to get 44,759,962,680
+
+The Roadway (main bridge component, includes sidewalk, etc.):
+    One level of legos for the bridge will fill a 27 by 1966 meter area.
+    27 * 1966 = 53082 meters squared.
+    53082 / .000254 = 208,984,252 legos per layer.
+    This is roughly 14456 legos squared.
+    The off-layer will have 14457 legos squared or 209,004,849 legos
+    With 8 meters of depth, there will be 8/.0032 levels or 2500 levels.
+    There is only 1 roadway so 2500/2 = 1250 levels will have 208,984,252 legos and 1250 levels will have 209,004,849 legos.
+    This totals to 522,486,376,300
+
+Suspender Ropes:
+    One level of legos for the rope will fill a circle with area .034*.034*pi = .00363 meters squared.
+    .00363 / .000254 = 25 legos per level (5 squared).
+    For our off-layers, we will have 36 legos per level (6 squared).
+    For one rope, we will have 113.5 meters of levels or 113.5/.0032 = 35468 levels
+    With 500 ropes and half of the levels for each type of layer, we will have 35468*500/2 = 88670000 levels of 25 legos and 8867000 levels of 36 legos.
+    This totals to 540,887,000
+
+With our four components calculated, we can add our totals to get our final answer.
+
+4,255,292,500 + 44,759,962,680 + 522,486,376,300 + 540,887,000 = 572,012,248,500 legos to rebuild the Golden Gate Bridge.
