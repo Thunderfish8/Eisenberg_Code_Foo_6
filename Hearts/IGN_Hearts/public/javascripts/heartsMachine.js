@@ -122,10 +122,58 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
     $scope.turn = 0;
     $scope.start = 0;
 
+//Watches for the state of the app to change to the round.  Triggers the setup for a game when the view changes to the round view.
+    $scope.$watch('game.getState()', function(newValue, oldValue){
+        if (newValue == "round"){
+            $scope.setup();
+        }
+    })
+
+    $timeout(function(){ $scope.loadCards(); }, 500);
+
+
+//Setup Functions and Card Handling Functions
     $scope.loadCards = function(){
         $scope.cards = game.getCards();
     }
 
+//Deals 13 cards to each of 4 players from the deck.
+    $scope.dealHand = function(){
+        for (var c = 0 ; c < 13 ; ++c){
+            for (var p = 0 ; p < 4 ; ++p){
+                var incoming = Math.floor(Math.random() * $scope.cards.length)
+                $scope.hands[p].push($scope.cards[incoming]);
+                if ($scope.cards[incoming].suit == 0 && $scope.cards[incoming].rank == 2){
+                    $scope.turn = p;
+                    $scope.start = p;
+                }
+                $scope.cards.splice(incoming, 1);
+            }
+        }
+        $scope.game.refreshCards();
+    }
+
+//Sorts all players hands by suit, then by rank in ascending order.
+    $scope.sortHands = function(){
+        for (var h = 0 ; h < 4 ; ++h){
+            $scope.hands[h].sort(function(a, b){
+                if (a.suit == b.suit){
+                    if (a.rank < b.rank){
+                        return -1;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+                else if (a.suit < b.suit){
+                    return -1;
+                }
+                return 1;
+            });
+        }
+    }
+
+//Prepares for a round to start
     $scope.setup = function(){
 
         if ($scope.scoring.getScores().length == 0){
@@ -140,15 +188,24 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
             $scope.startRound();
         }
         else {
-            $scope.errorMessage = "Select 3 Cards to Pass to Your Opponent";
+            $scope.errorMessage = "Select 3 Cards to Pass to An Opponent";
         }
     }
 
-    $scope.$watch('game.getState()', function(newValue, oldValue){
-        if (newValue == "round"){
-            $scope.setup();
+//Starts the round, if the player is not leading off.
+    $scope.startRound = function(){
+        if ($scope.turn > 0){
+            $scope.enemyTurn();
         }
-    })
+    }
+
+    $scope.getScore = function(id){
+        var scores = $scope.scoring.getScores()
+        return scores[scores.length - 1][id];
+    }
+
+
+//Functions pertaining to trading at the start of rounds.
 
     $scope.makeTrades = function(){
         for (t = 0 ; t < 4 ; ++t){
@@ -193,53 +250,11 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         }
     }
 
-    $timeout(function(){ $scope.loadCards(); }, 1000);
 
-    $scope.dealHand = function(){
-        for (var c = 0 ; c < 13 ; ++c){
-            for (var p = 0 ; p < 4 ; ++p){
-                var incoming = Math.floor(Math.random() * $scope.cards.length)
-                $scope.hands[p].push($scope.cards[incoming]);
-                if ($scope.cards[incoming].suit == 0 && $scope.cards[incoming].rank == 2){
-                    $scope.turn = p;
-                    $scope.start = p;
-                }
-                $scope.cards.splice(incoming, 1);
-            }
-        }
-        $scope.game.refreshCards();
-    }
 
-    $scope.sortHands = function(){
-        for (var h = 0 ; h < 4 ; ++h){
-            $scope.hands[h].sort(function(a, b){
-                if (a.suit == b.suit){
-                    if (a.rank < b.rank){
-                        return -1;
-                    }
-                    else {
-                        return 1;
-                    }
-                }
-                else if (a.suit < b.suit){
-                    return -1;
-                }
-                return 1;
-            });
-        }
-    }
 
-    $scope.getScore = function(id){
-        var scores = $scope.scoring.getScores()
-        return scores[scores.length - 1][id];
-    }
 
-    $scope.startRound = function(){
-        if ($scope.turn > 0){
-            $scope.enemyTurn();
-        }
-    }
-
+//Enemy AI Code.  Enemies follow a series of decisions that help them make intelligent plays.  In testing, the AI opponents know when to play a low card, and when its time to discard a high card.
     $scope.enemyTurn = function(){
         while ($scope.turn > 0 && (!($scope.turn == $scope.start && !$scope.turnStarting))){
             $scope.turnStarting = false;
@@ -298,10 +313,12 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
 
     }
 
+//This function dictates how the player's turn pans out.  Most checks determine if the play is valid within the rules.
     $scope.playCard = function(index, card){
         var valid = false;
         if ($scope.turn == 0){
 
+            //Case 1: First trick of the round, leading off
             if ($scope.currentSuit == -1 && $scope.trickWinner == -1 && $scope.hands[1].length == 13){
                 if (card.suit == 0 && card.rank ==2){
                     $scope.plays[0] = card;
@@ -314,6 +331,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
                     $scope.errorMessage = "You must start the round by playing the 2 of Clubs.";
                 }
             }
+
+            //Case 2: Leading a trick that is not the first trick.
             else if ($scope.start == 0){
                 if ($scope.heartsBroken || card.suit < 3){
                     $scope.plays[0] = card;
@@ -326,6 +345,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
                     $scope.errorMessage = "You cannot play hearts until hearts have been broken.";
                 }
             }
+
+            //Case 3: Following suit during a trick.
             else if (card.suit == $scope.currentSuit){
                 $scope.plays[0] = card;
                 $scope.hands[0][index] = {played: true};
@@ -334,6 +355,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
                 }
                 valid = true;
             }
+
+            //Case 4: Breaking suit due to lack of proper suit.
             else {
                 if (!$scope.hasSuit(0)){
                     if ($scope.hands[1].length == 13){
@@ -371,6 +394,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         }
     }
 
+
+//The following functions are used to help determine whether plays are valid, and to help guide AI opponents to make the correct plays based on their situation.
     $scope.hasSuit = function(player){
         var hand = $scope.hands[player];
         for (var c = 0 ; c < hand.length ; ++c){
@@ -381,6 +406,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return false;
     }
 
+//Function determines if an AI will be forced to take the cards from a trick.
     $scope.isSafe = function(player){
         var hand = $scope.hands[player];
         var opp = $scope.plays[$scope.trickWinner];
@@ -398,6 +424,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return false;
     }
 
+//Function for when an AI knows they will not "win" the trick.
     $scope.playSafe = function(player){
         var hand = $scope.hands[player];
         var opp = $scope.plays[$scope.trickWinner];
@@ -414,6 +441,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return hand.length - 1;
     }
 
+//Function for when an AI can't guarantee a "win" or a "loss" for the trick.
     $scope.playHopeful = function(player){
         var hand = $scope.hands[player];
         for (var c = 0 ; c < hand.length ; ++c){
@@ -426,6 +454,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         }
     }
 
+//Function for when an AI knows they are going to "win" the trick.
     $scope.playReckless = function(player){
         var hand = $scope.hands[player];
         for (var c = 0 ; c < hand.length ; ++c){
@@ -442,6 +471,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return c - 1;
     }
 
+//Determines the card that is worth the most points that is valid to play in a player's hand.
     $scope.maxPoints = function(player){
         var hand = $scope.hands[player];
         var maxP = 0;
@@ -464,6 +494,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return maxIndex;
     }
 
+//Determines lowest rank card in a hand that can be played.
     $scope.minLead = function(player){
         var hand = $scope.hands[player];
         var minRank = 15;
@@ -480,6 +511,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         return minIndex;
     }
 
+
+//Filter player input based on whether the round is in the trading phase or game phase.
     $scope.selectCard = function(index, card){
         if ($scope.trading){
             $scope.tradeCard(index, card);
@@ -489,6 +522,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         }
     }
 
+//After all players have played a card, this function determines who wins the trick.
     $scope.determineTrick = function(){
         for (var c = 0 ; c < 4 ; ++c){
             $scope.gameScore[$scope.trickWinner] += $scope.plays[c].points;
@@ -514,6 +548,7 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
         }, 2000);
     }
 
+//After all cards in a round have been played, this function deals with setting up results and preparing for a potential next round.
     $scope.endRound = function(){
         $scope.scoring.addRound($scope.gameScore);
         $scope.turnStarting = true;
@@ -530,6 +565,8 @@ heartsApp.controller("round", ["$scope", "$http", "$timeout", "scoring", "game",
 
 }]);
 
+
+//This controller handles the results screen that displays after every round.
 heartsApp.controller("results", ["$scope", "scoring", "game", function($scope, scoring, game){
 
     $scope.scoring = scoring;
@@ -583,6 +620,8 @@ heartsApp.controller("results", ["$scope", "scoring", "game", function($scope, s
 
 }]);
 
+
+//This controller handles the home page that displays when navigating to the website.
 heartsApp.controller("menu", ["$scope", "game", function($scope, game){
 
     $scope.game = game;
