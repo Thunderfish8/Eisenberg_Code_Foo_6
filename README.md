@@ -20,6 +20,7 @@ There are some supplementary images that I created in a lego simulator that are 
 The scrabble word script can be found in the BestWord directory of this repository.
 The script is written in Ruby, and can be run by running "ruby bestWord.rb".
 The program will prompt the user for input.  Follow the instructions to use the script.
+The script uses the dictionary provided by in the problem.
 
 
 ---- PART 4 ----
