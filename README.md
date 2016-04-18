@@ -5,7 +5,7 @@ My name is Jared Eisenberg, and this is my submission for the Code-Foo 6 challen
 
 PART 1: [insert-link-here]
 
-PART 2:
+PART 2: \n
 My solution for the Golden Gate Bridge problem can be found in the Golden Gate directory.
 The solution is explained in detail in goldenGate.txt.
 There are some supplementary images that I created in a lego simulator that are used to help visualize part of my solution.
