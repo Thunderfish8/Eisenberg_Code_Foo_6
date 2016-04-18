@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html ng-app="heartsApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Eisenberg Hearts</title>
+        <link rel="stylesheet" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/heartsMachine.js"></script>
+        <script type="text/javascript" src="/javascripts/services.js"></script>
+
+    </head>
+    <body>
+
+        <!-- Menu Page -->
+        <div ng-controller="menu">
+            <div class="container-fluid" ng-show="game.getState() == 'menu'">
+                <div class="menuTitle">Welcome to Hearts</div>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-7 col-md-offset-3">
+                        <div class="rules">Rules:</div>
+                        <br>
+                        <ul class="list-group">
+                            <li class="list-group-item">The game ends when one player reaches 100 points.</li>
+                            <li class="list-group-item list-group-item-warning">Win by having the least amount of points when the game ends.</li>
+                            <li class="list-group-item">Each heart is worth 1 point.  The queen of spades is worth 13 points.</li>
+                            <li class="list-group-item">The player with the 2 of clubs must lead the first trick.</li>
+                            <li class="list-group-item">Players may not break hearts or discard the queen of spades on the first trick.</li>
+                            <li class="list-group-item">To "Shoot the Moon", collect all hearts and the queen of spades in one round.</li>
+                            <li class="list-group-item">If a player successfully shoots the moon, all other players will get 26 points.</li>
+                            <li class="list-group-item">More about Hearts: <a href="https://en.wikipedia.org/wiki/Hearts">Hearts Wikipedia Article</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-4">
+                        <button class="btn btn-info btn-lg btn-block" ng-click="startGame()">PLAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Game Page -->
+        <div ng-controller="round">
+            <div class="container-fluid gameScene" ng-show="game.getState() == 'round'">
+                <div class="row cardRow">
+                    <div class="col-md-1 col-md-offset-6">
+                        <img src="/images/card_back.gif"/>
+                    </div>
+                    <div class="col-md-1 sidePlayer">
+                        <span>Computer B</span>
+                        <br>
+                        <br>
+                        <br>
+                        <span>{{gameScore[2]}}</span>
+                    </div>
+                </div>
+                <div class="row breakRow">
+
+                </div>
+                <div class="row cardRow">
+                    <div class="col-md-1 col-md-offset-6">
+                        <img ng-src="/images/{{plays[2].pic}}"/>
+                    </div>
+                </div>
+                <div class="row cardRow">
+                    <div class="col-md-1 sidePlayer">
+                        <span>Computer A</span>
+                        <br>
+                        <br>
+                        <br>
+                        <span>{{gameScore[1]}}</span>
+                    </div>
+                    <div class="col-md-1 col-md-offset-1">
+                        <img src="/images/card_back.gif"/>
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                        <img ng-src="/images/{{plays[1].pic}}"/>
+                    </div>
+                    <div class="col-md-1 col-md-offset-1">
+                        <img ng-src="/images/{{plays[3].pic}}"/>
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                        <img src="/images/card_back.gif"/>
+                    </div>
+                    <div class="col-md-1 col-md-offset-1 sidePlayer">
+                        <span>Computer C</span>
+                        <br>
+                        <br>
+                        <br>
+                        <span>{{gameScore[3]}}</span>
+                    </div>
+                </div>
+                <div class="row cardRow">
+                    <div class="col-md-1 col-md-offset-6">
+                        <img ng-src="/images/{{plays[0].pic}}"/>
+                    </div>
+                </div>
+                <div class="row breakRow">
+                    <div class="col-md-7 col-md-offset-3 errorMessage">
+                        {{errorMessage}}
+                    </div>
+                </div>
+                <div class="row cardRow">
+                    <div class="col-md-1 col-md-offset-2 sidePlayer">
+                        <span>Player</span>
+                        <br>
+                        <br>
+                        <br>
+                        <span>{{gameScore[0]}}</span>
+                    </div>
+                    <div class="col-md-7 ">
+                        <div class="col-md-1 playerCard" ng-repeat="card in hands[0] track by $index">
+                            <div ng-click="selectCard($index, card)" ng-hide="card.played">
+                                <img ng-src="/images/{{card.pic}}" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-controller="results">
+            <div class="container-fluid" ng-show="game.getState() == 'results'">
+
+                <div class="menuTitle" ng-hide="gameOver">
+                    Current Standings
+                </div>
+                <div class="menuTitle" ng-show="gameOver">
+                    {{winners[winningIndex]}} Wins
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-7 col-md-offset-3">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Round</th>
+                                <th class="tableHead">Player</th>
+                                <th class="tableHead">Computer A</th>
+                                <th class="tableHead">Computer B</th>
+                                <th class="tableHead">Computer C</th>
+                            </tr>
+                            <tr ng-repeat="round in scoreBoard track by $index">
+                                <td>
+                                    {{$index + 1}}
+                                </td>
+                                <td ng-repeat="score in round track by $index" class="tableEntry">
+                                    {{score}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-4">
+                        <button class="btn btn-info btn-lg btn-block" ng-click="nextRound()" ng-hide="gameOver">Next Round</button>
+                        <div class="btn-group btn-group-justified" role="group" ng-show="gameOver">
+                            <div class="btn-group btn-group-lg" role="group">
+                                <button type="button" class="btn btn-info" ng-click="mainMenu()">Back to Menu</button>
+                            </div>
+                            <div class="btn-group btn-group-lg" role="group">
+                                <button type="button" class="btn btn-success" ng-click="newGame()">Play Again</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

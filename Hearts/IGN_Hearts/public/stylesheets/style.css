@@ -1,0 +1,83 @@
+body {
+  padding: 20px;;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ddffdd;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.menuTitle{
+    color: #ff8888;
+    text-align: center;
+    font-weight: bold;
+    font-size: 55px;
+    text-decoration: underline;
+}
+
+.rules{
+    color: #ff8888;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.gameScene{
+    margin-top: 5px;
+}
+
+.cardRow{
+    height: 16.67%;
+}
+
+.breakRow{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.cpuHand {
+    text-align: center;
+}
+
+.playerCard{
+    padding-left:0;
+}
+
+.sidePlayer{
+    overflow: visible;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tableHead, .tableEntry{
+    text-align: center;
+}
+
+.errorMessage{
+    color: #ff8888;
+    text-align: center;
+}
+
+@keyframes fadeUp{
+    from: {
+        bottom: 0;
+    }
+    to: {
+        bottom: 500px;
+    }
+}
+
+@-webkit-keyframes fadeUp{
+    from: {
+        bottom: 0;
+    }
+    to: {
+        bottom: 500px;
+    }
+}
+
+.p1Win{
+    position: relative;
+    -webkit-animation: fadeUp 1s ease-out;
+    animation: fadeUp 1s ease-out;
+}

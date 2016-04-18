@@ -1,0 +1,316 @@
+{
+  "cards": [
+    {
+      "suit": 0,
+      "rank": 2,
+      "pic": "clb_2.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 3,
+      "pic": "clb_3.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 4,
+      "pic": "clb_4.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 5,
+      "pic": "clb_5.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 6,
+      "pic": "clb_6.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 7,
+      "pic": "clb_7.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 8,
+      "pic": "clb_8.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 9,
+      "pic": "clb_9.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 10,
+      "pic": "clb_10.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 11,
+      "pic": "clb_j.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 12,
+      "pic": "clb_q.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 13,
+      "pic": "clb_k.gif",
+      "points": 0
+    },
+    {
+      "suit": 0,
+      "rank": 14,
+      "pic": "clb_a.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 2,
+      "pic": "dmd_2.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 3,
+      "pic": "dmd_3.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 4,
+      "pic": "dmd_4.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 5,
+      "pic": "dmd_5.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 6,
+      "pic": "dmd_6.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 7,
+      "pic": "dmd_7.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 8,
+      "pic": "dmd_8.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 9,
+      "pic": "dmd_9.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 10,
+      "pic": "dmd_10.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 11,
+      "pic": "dmd_j.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 12,
+      "pic": "dmd_q.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 13,
+      "pic": "dmd_k.gif",
+      "points": 0
+    },
+    {
+      "suit": 1,
+      "rank": 14,
+      "pic": "dmd_a.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 2,
+      "pic": "spd_2.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 3,
+      "pic": "spd_3.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 4,
+      "pic": "spd_4.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 5,
+      "pic": "spd_5.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 6,
+      "pic": "spd_6.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 7,
+      "pic": "spd_7.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 8,
+      "pic": "spd_8.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 9,
+      "pic": "spd_9.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 10,
+      "pic": "spd_10.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 11,
+      "pic": "spd_j.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 12,
+      "pic": "spd_q.gif",
+      "points": 13
+    },
+    {
+      "suit": 2,
+      "rank": 13,
+      "pic": "spd_k.gif",
+      "points": 0
+    },
+    {
+      "suit": 2,
+      "rank": 14,
+      "pic": "spd_a.gif",
+      "points": 0
+    },
+    {
+      "suit": 3,
+      "rank": 2,
+      "pic": "hrt_2.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 3,
+      "pic": "hrt_3.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 4,
+      "pic": "hrt_4.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 5,
+      "pic": "hrt_5.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 6,
+      "pic": "hrt_6.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 7,
+      "pic": "hrt_7.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 8,
+      "pic": "hrt_8.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 9,
+      "pic": "hrt_9.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 10,
+      "pic": "hrt_10.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 11,
+      "pic": "hrt_j.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 12,
+      "pic": "hrt_q.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 13,
+      "pic": "hrt_k.gif",
+      "points": 1
+    },
+    {
+      "suit": 3,
+      "rank": 14,
+      "pic": "hrt_a.gif",
+      "points": 1
+    }
+  ]
+}

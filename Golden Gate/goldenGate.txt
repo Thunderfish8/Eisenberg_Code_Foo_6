@@ -30,6 +30,10 @@ Average Height of Rope: Tower Height / 2 = 227/2 = 113.5 meters
     Sides: .016 meters
     Height: .0032 meters
 
+
+
+
+
 ---- Step 2: Determining Ideal Configurations ----
 
 It is important to use base slabs of legos (larger than 4x4) to create a foundation for our ideal configuration of legos.
@@ -69,6 +73,9 @@ We also need to make a few estimates to simplify our calculations.
 These assumptions will be noted as they become relevant in calculations, but to give an example, the tower slightly narrowing towards the top cannot be taken into account as the exact measurement for how much it narrows is unavailable.
 
 Any calculations that result in units of legos or levels will be rounded to whole numbers (since we can't have fractions of legos or levels).
+
+
+
 
 
 
