@@ -5,10 +5,12 @@ ignApp.controller("main", ['$scope', '$http', function($scope, $http){
     $scope.articles = [];
     $scope.videos = [];
 
+    //Swithces between articles and videos
     $scope.switchType = function(onArts){
         $scope.onArticles = onArts;
     }
 
+    //The following functions help format times to mm:ss
     $scope.secToMin = function(sec){
         var mins = Math.floor(sec/60);
         var secs = sec % 60;
@@ -23,6 +25,7 @@ ignApp.controller("main", ['$scope', '$http', function($scope, $http){
         return num;
     }
 
+    //These functions load articles and videos using the API given in the application.
     $scope.loadVideos = function(){
         $http.jsonp('http://ign-apis.herokuapp.com/videos?callback=JSON_CALLBACK', {params:{"startIndex": $scope.videos.length, "count" : 10}}).
         success(function(data){
@@ -44,6 +47,9 @@ ignApp.controller("main", ['$scope', '$http', function($scope, $http){
         });
     }
 
+
+    //These functions provide a method for navigating to the destination of the articles and videos pulled from the API.
+    //Upon examing the url format for articles, I was able to recreate them using parts of the objects pulled from the API despite the articles not having a dedicated url property.
     $scope.followArticleLink = function(date, slug){
 
         var formattedDate = date.substring(0, 4) + "/" + (date.substring(5, 7)) + "/" + date.substring(8, 10);
@@ -58,14 +64,3 @@ ignApp.controller("main", ['$scope', '$http', function($scope, $http){
     $scope.loadVideos();
 
 }]);
-
-ignApp.directive('backImg', function(){
-    return function(scope, element, attrs){
-        attrs.$observe('backImg', function(value) {
-            element.css({
-                'background-image': 'url(' + value +')',
-                'background-size' : 'cover'
-            });
-        });
-    };
-});
