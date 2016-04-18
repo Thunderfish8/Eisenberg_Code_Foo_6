@@ -3,7 +3,9 @@
 My name is Jared Eisenberg, and this is my submission for the Code-Foo 6 challenge.
 
 
----- PART 1 ---- [insert-link-here]
+---- PART 1 ---- 
+
+https://www.youtube.com/watch?v=VJdt73MBURg
 
 
 ---- PART 2 ----
